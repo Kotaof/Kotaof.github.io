@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>Aide Scolaire en Ligne</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    * { margin:0; padding:0; box-sizing:border-box; }
+    body { font-family: 'Poppins', sans-serif; background: #f5f7fa; color: #333; }
+
+    /* Hero */
+    header {
+      height: 100vh;
+      background: linear-gradient(to right, rgba(33,147,176,0.8), rgba(109,213,237,0.8)), 
+                  url("https://images.unsplash.com/photo-1600195077071-54a8a0e927af?auto=format&fit=crop&w=1350&q=80");
+      background-size: cover;
+      background-position: center;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      color: white;
+      padding: 20px;
+    }
+    header h1 { font-size: 3em; font-weight: 700; margin-bottom: 20px; animation: fadeInDown 1s ease; }
+    header p { font-size: 1.2em; max-width: 600px; margin-bottom: 30px; animation: fadeInUp 1.5s ease; }
+    .btn-primary {
+      padding: 15px 30px; font-size: 1.1em; border: none; border-radius: 30px;
+      background: #ff9800; color: white; cursor: pointer; transition: 0.3s; font-weight: 600;
+    }
+    .btn-primary:hover { background: #e68900; transform: scale(1.05); }
+
+    /* Section services */
+    .services { padding: 60px 20px; background: white; text-align: center; }
+    .services h2 { font-size: 2em; margin-bottom: 40px; color: #2193b0; }
+    .cards { display: flex; flex-wrap: wrap; justify-content: center; gap: 30px; }
+    .card {
+      background: #fdfdfd; border-radius: 15px; padding: 25px; width: 300px;
+      box-shadow: 0 6px 20px rgba(0,0,0,0.1); transition: transform 0.3s;
+    }
+    .card:hover { transform: translateY(-8px); }
+    .card h3 { font-size: 1.5em; margin-bottom: 10px; color: #2193b0; }
+    .price { font-size: 1.3em; color: #ff9800; margin-bottom: 15px; font-weight: bold; }
+
+    /* Formulaire */
+    .contact { padding: 60px 20px; background: #f0f9ff; text-align: center; }
+    .contact h2 { margin-bottom: 20px; color: #2193b0; }
+    form { max-width: 400px; margin: auto; text-align: left; }
+    label { font-weight: 600; margin-top: 10px; display: block; }
+    input, select { width: 100%; padding: 12px; margin-top: 5px; border: 1px solid #ccc; border-radius: 10px; }
+    button { margin-top: 20px; width: 100%; padding: 15px; border: none; border-radius: 30px;
+      background: #2193b0; color: white; font-size: 1em; font-weight: bold; cursor: pointer; transition: 0.3s; }
+    button:hover { background: #17687a; transform: scale(1.05); }
+
+    /* Bloc paiement */
+    .info-paiement {
+      margin-top: 20px; padding: 15px; background: #fff3cd; border: 1px solid #ffeeba;
+      border-radius: 10px; color: #856404; font-weight: bold; text-align: center;
+    }
+
+    /* Animations */
+    @keyframes fadeInDown { from {opacity:0; transform:translateY(-30px);} to {opacity:1; transform:translateY(0);} }
+    @keyframes fadeInUp { from {opacity:0; transform:translateY(30px);} to {opacity:1; transform:translateY(0);} }
+
+    /* Responsive */
+    @media (max-width: 768px){ .cards { flex-direction: column; align-items: center; } }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>📘 Aide Scolaire</h1>
+    <p>Réussissez vos études grâce à nos services rapides et fiables.<br>Choisissez l’aide adaptée à vos besoins scolaires.</p>
+    <a href="#services"><button class="btn-primary">Découvrir nos services</button></a>
+  </header>
+
+  <section id="services" class="services">
+    <h2>Nos Services</h2>
+    <div class="cards">
+      <div class="card">
+        <h3>✏️ Aide pour épreuves & exercices</h3>
+        <p class="price">600 F</p>
+        <p>Recevez des solutions détaillées et des explications claires pour vos devoirs et examens.</p>
+      </div>
+      <div class="card">
+        <h3>📑 Résumé & explications de cours</h3>
+        <p class="price">300 F</p>
+        <p>Comprenez vos leçons rapidement grâce à des résumés clairs et concis.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="contact">
+    <h2>Envoyer une Demande</h2>
+    <form id="helpForm">
+      <label>Nom et prénoms :</label><input type="text" name="nom" required>
+      <label>Classe :</label><input type="text" name="classe" required>
+      <label>Matière :</label><input type="text" name="matiere" required>
+      <label>Type de service :</label>
+      <select name="service" required>
+  <option value="exercices">✏️ Aide pour épreuves & exercices</option>
+  <option value="cours">📑 Résumé & explications de cours</option>
+</select>
+      <label>Email :</label><input type="email" name="email" required>
+      <label>Pays :</label><input type="text" name="pays" required>
+      <button type="submit">📨 Envoyer ma demande</button>
+    </form>
+    <div id="paiementInfo" class="info-paiement" style="display:none;">
+      Le premier essai gratuit est terminé.<br>
+      Veuillez payer au numéro : <strong>+2290159087333</strong><br>
+      Montant : <span id="prix"></span>
+    </div>
+  </section>
+
+  <script src="https://cdn.emailjs.com/sdk/3.11.0/email.min.js"></script>
+  <script>
+    const form = document.getElementById("helpForm");
+    const paiementInfo = document.getElementById("paiementInfo");
+    const prixSpan = document.getElementById("prix");
+    let firstTry = localStorage.getItem("firstTry") !== "done";
+
+    form.addEventListener("submit", function(e){
+      e.preventDefault();
+      const serviceText = form.service.options[form.service.selectedIndex].text;
+
+      if(firstTry){
+        emailjs.sendForm("service_txiwnef", "template_6eow9gq", form)
+          .then(() => {
+            alert("✅ Votre demande gratuite a été envoyée !");
+            localStorage.setItem("firstTry", "done");
+            firstTry = false;
+            form.reset();
+          }, (err) => { alert("❌ Erreur : " + JSON.stringify(err)); });
+      } else {
+        prixSpan.textContent = serviceText.split("—")[1].trim();
+        paiementInfo.style.display = "block";
+        alert("⚠️ Premier essai gratuit terminé. Veuillez payer avant de continuer.#2290159087333");
+      }
+    });
+  </script>
+</body>
+</html>
